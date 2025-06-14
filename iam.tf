@@ -15,7 +15,7 @@ resource "aws_iam_openid_connect_provider" "github" {
 resource "aws_iam_role" "github_actions_role" {
   name = "GithubActionsRole"
 
-  # Доверительные отношения для GitHub OIDC
+  # GitHub OIDC
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -98,7 +98,10 @@ resource "aws_iam_role_policy" "terraform_state_access" {
           "dynamodb:GetItem",
           "dynamodb:DeleteItem",
           "dynamodb:DescribeTable",
-          "dynamodb:DescribeContinuousBackups"
+          "dynamodb:DescribeContinuousBackups",
+          "dynamodb:DescribeTimeToLive",
+          "dynamodb:ListTagsOfResource",
+          "dynamodb:TagResource",
         ]
         Resource = "arn:aws:dynamodb:${var.aws_region}:621837861588:table/${var.dynamodb_table_name}"
       }
