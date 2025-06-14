@@ -96,7 +96,8 @@ resource "aws_iam_role_policy" "terraform_state_access" {
         Action = [
           "dynamodb:PutItem",
           "dynamodb:GetItem",
-          "dynamodb:DeleteItem"
+          "dynamodb:DeleteItem",
+          "dynamodb:DescribeTable"
         ]
         Resource = "arn:aws:dynamodb:${var.aws_region}:621837861588:table/${var.dynamodb_table_name}"
       }
