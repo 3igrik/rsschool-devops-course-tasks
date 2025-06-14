@@ -30,7 +30,7 @@ resource "aws_iam_role" "github_actions_role" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:3igrik/rsschool-devops-course-tasks:*"
+            "token.actions.githubusercontent.com:sub" = "repo:${var.github_repo}:*"
           }
         }
       }
@@ -71,4 +71,35 @@ resource "aws_iam_role_policy_attachment" "sqs_full_access" {
 resource "aws_iam_role_policy_attachment" "eventbridge_full_access" {
   role       = aws_iam_role.github_actions_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess"
+}
+
+resource "aws_iam_role_policy" "terraform_state_access" {
+  name = "TerraformStateAccess"
+  role = aws_iam_role.github_actions_role.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket"
+        ]
+        Resource = [
+          "arn:aws:s3:::${var.state_bucket_name}",
+          "arn:aws:s3:::${var.state_bucket_name}/*"
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:DeleteItem"
+        ]
+        Resource = "arn:aws:dynamodb:${var.aws_region}:621837861588:table/${var.dynamodb_table_name}"
+      }
+    ]
+  })
 }

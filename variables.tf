@@ -19,5 +19,5 @@ variable "dynamodb_table_name" {
 variable "github_repo" {
   description = "GitHub repository for OIDC trust policy (format: org/repo)"
   type        = string
-  default     = "3igril/rsschool-devops-course-tasks"
+  default     = "3igrik/rsschool-devops-course-tasks"
 }
