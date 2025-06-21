@@ -33,3 +33,18 @@ This repository contains Terraform configuration to set up AWS infrastructure fo
 git clone https://github.com/3igrik/rsschool-devops-course-tasks.git
 cd rsschool-devops-course-tasks
 ```
+
+## Infrastructure Overview
+
+- **VPC**: A virtual network (`main-vpc`) with CIDR `10.0.0.0/16` in region `eu-north-1`.
+- **Public Subnets**: Two subnets (`public-subnet-1`, `public-subnet-2`) in AZs `eu-north-1a` and `eu-north-1b` with CIDR `10.0.1.0/24` and `10.0.2.0/24`. Instances have public IPs and internet access via an Internet Gateway.
+- **Private Subnets**: Two subnets (`private-subnet-1`, `private-subnet-2`) in AZs `eu-north-1a` and `eu-north-1b` with CIDR `10.0.3.0/24` and `10.0.4.0/24`. Isolated from the internet but can communicate with other subnets in the VPC.
+- **Internet Gateway**: Attached to the VPC (`main-igw`) for public subnet internet access.
+- **Routing**:
+  - Public subnets use a route table with a route to the Internet Gateway (`0.0.0.0/0`).
+  - Private subnets use a separate route table with local routing only.
+  - All subnets can communicate with each other via the VPC's local route (`10.0.0.0/16`).
+
+## Project Structure
+
+- `vpc.tf`: Configures VPC, subnets, Internet Gateway, and routing.
