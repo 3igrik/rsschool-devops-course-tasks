@@ -63,3 +63,27 @@ variable "az_2" {
   type        = string
   default     = "eu-north-1b"
 }
+
+variable "bastion_ami" {
+  description = "AMI ID for the bastion host (Amazon Linux 2023)"
+  type        = string
+  default     = "ami-012e1773308038949"
+}
+
+variable "bastion_instance_type" {
+  description = "Instance type for the bastion host"
+  type        = string
+  default     = "t4g.nano"
+}
+
+variable "ssh_key_name" {
+  description = "Name of the SSH key pair for the bastion host"
+  type        = string
+  default     = "3igrik-key-pair"
+}
+
+variable "allowed_ssh_cidr" {
+  description = "CIDR block allowed to SSH into the bastion host"
+  type        = string
+  default     = "2.132.80.254/32" # IP
+}
