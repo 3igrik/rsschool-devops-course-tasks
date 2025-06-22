@@ -40,6 +40,11 @@ cd rsschool-devops-course-tasks
 - **Public Subnets**: Two subnets (`public-subnet-1`, `public-subnet-2`) in AZs `eu-north-1a` and `eu-north-1b` with CIDR `10.0.1.0/24` and `10.0.2.0/24`. Instances have public IPs and internet access via an Internet Gateway.
 - **Private Subnets**: Two subnets (`private-subnet-1`, `private-subnet-2`) in AZs `eu-north-1a` and `eu-north-1b` with CIDR `10.0.3.0/24` and `10.0.4.0/24`. Isolated from the internet but can communicate with other subnets in the VPC.
 - **Internet Gateway**: Attached to the VPC (`main-igw`) for public subnet internet access.
+- **NAT Gateway**: Deployed in public-subnet-1 (main-nat) with an Elastic IP, allowing private subnets to access the internet for outbound traffic.
+- **Security Groups**:
+  `bastion-sg`: Allows SSH (port 22) from a specified CIDR (default: 0.0.0.0/0, recommended to restrict to your IP).
+  `private-sg`: Allows SSH from bastion-sg and all outbound traffic.
+- **Bastion Host**: An EC2 instance (bastion-host) in public-subnet-1 using Amazon Linux 2023 AMI and `t4g.nano` instance type, serving as a secure entry point to private subnets.
 - **Routing**:
   - Public subnets use a route table with a route to the Internet Gateway (`0.0.0.0/0`).
   - Private subnets use a separate route table with local routing only.
