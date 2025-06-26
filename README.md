@@ -52,4 +52,13 @@ cd rsschool-devops-course-tasks
 
 ## Project Structure
 
-- `vpc.tf`: Configures VPC, subnets, Internet Gateway, and routing.
+- `vpc.tf`: Defines the VPC and Internet Gateway.
+- `subnets.tf`: Defines public and private subnets.
+- `nat.tf`: Defines NAT Gateway and Elastic IP.
+- `route_tables.tf`: Defines route tables and associations.
+- `security_groups.tf`: Defines security groups for bastion host and private subnets.
+- `private-nacl.tf`, `public-nacl.tf`: Defines Network ACLs for public and private subnets.
+- `bastion.tf`: Defines the bastion host EC2 instance.
+- `variables.tf`: Defines input variables.
+- `iam.tf`: Defines IAM roles for GitHub Actions.
+- `backend.tf`: Configures S3 backend for Terraform state.
