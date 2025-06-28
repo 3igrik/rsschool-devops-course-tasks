@@ -20,6 +20,17 @@ resource "aws_network_acl_rule" "public_nacl_ingress_ssh" {
   to_port        = 22
 }
 
+resource "aws_network_acl_rule" "public_nacl_ingress_k3s" {
+  network_acl_id = aws_network_acl.public_nacl.id
+  rule_number    = 111
+  protocol       = "tcp"
+  rule_action    = "allow"
+  egress         = false
+  cidr_block = var.allowed_ssh_cidr
+  from_port  = 6443
+  to_port    = 6443
+}
+
 resource "aws_network_acl_rule" "public_nacl_ingress_ephemeral" {
   network_acl_id = aws_network_acl.public_nacl.id
   rule_number    = 110

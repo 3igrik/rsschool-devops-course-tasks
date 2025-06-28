@@ -85,5 +85,5 @@ variable "ssh_key_name" {
 variable "allowed_ssh_cidr" {
   description = "CIDR block allowed to SSH into the bastion host"
   type        = string
-  default     = "2.132.80.254/32" # IP
+  default     = "2.132.232.66/32" # IP
 }
