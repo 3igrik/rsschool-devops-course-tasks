@@ -1,0 +1,6 @@
+aws_region          = "eu-north-1"
+state_bucket_name   = "3igrik-rs-tf-state-2025"
+dynamodb_table_name = "terraform-state-lock"
+github_repo         = "3igrik/rsschool-devops-course-tasks"
+ssh_key_name        = "3igrik-key-pair"
+allowed_ssh_cidr    = "2.132.232.66/32"
